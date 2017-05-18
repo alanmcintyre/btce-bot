@@ -178,13 +178,13 @@ class Bot(object):
         
     def addDepthHandler(self, handler, pairs):
         for p in pairs:
-            self.api.validate_pair(p)
+            self.api.apiInfo.validate_pair(p)
 
         self.depthHandlers.append((handler, pairs))
         
     def addTradeHistoryHandler(self, handler, pairs):
         for p in pairs:
-            self.api.validate_pair(p)
+            self.api.apiInfo.validate_pair(p)
 
         self.tradeHistoryHandlers.append((handler, pairs))
         
