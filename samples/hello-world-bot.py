@@ -90,15 +90,16 @@ def onBotError(msg, tracebackText):
 def run(key_file, buy_floor, sell_ceiling, live_trades):        
     # Load the keys and create an API object from the first one.
     handler = btceapi.KeyHandler(key_file)
-    key = handler.getKeys()[0]
+    key = handler.keys[0]
     print "Trading with key %s" % key
-    api = btceapi.TradeAPI(key, handler)
+    api = btceapi.TradeAPI(key, handler,btceapi.BTCEConnection())
             
     # Create a trader that handles LTC/USD trades in the given range.
     trader = RangeTrader(api, "ltc_usd", buy_floor, sell_ceiling, live_trades)
 
     # Create a bot and add the trader to it.
-    bot = btcebot.Bot()
+
+    bot = btcebot.Bot(api)
     bot.addTrader(trader)
     
     # Add an error handler so we can print info about any failures
